@@ -1,0 +1,47 @@
+name: Firebase Emulator Action Example
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  run-emulator:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # Setup Java
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      # Install Firebase Emulator Suite and start the emulators
+      - name: Start Firebase Emulator Suite
+        uses: invertase/firebase-emulator-action@v1
+        with:
+          firebase-tools-version: 'latest'
+          emulators: 'auth,firestore,functions,storage,database'
+          project-id: 'test-project'
+          max-retries: '3'
+          max-checks: '60'
+          wait-time: '1'
+          check-port: '8080'
+
+      # Run tests or other actions using the emulator
+      - name: Run Tests
+        run: |
+          echo "Running tests against Firebase Emulator Suite"
+          npm install
+          npm test
