@@ -14,14 +14,31 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      # Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
       # Install Firebase Emulator Suite and start the emulators
       - name: Start Firebase Emulator Suite
         uses: invertase/firebase-emulator-action@v1.0.0
         with:
-          firebase-tools-version: "latest"
+          firebase-tools-version: "11.22.0"
           emulators: "auth,firestore,functions,storage,database"
           project-id: "test-project"
-          max-retries: "3"
-          max-checks: "60"
-          wait-time: "1"
+          max-retries: "5"
+          max-checks: "120"
+          wait-time: "2"
           check-port: "8080"
+
+      # Run tests against the emulator
+      - name: Run Tests
+        run: |
+          npm install
+          npm test
+
+      # Stop Firebase Emulator
+      - name: Stop Firebase Emulator
+        if: always()
+        run: pkill -f "firebase"
