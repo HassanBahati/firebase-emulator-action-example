@@ -16,10 +16,14 @@ jobs:
           node-version: 20
 
       - name: Start Firebase Emulator Suite
-        uses: firebase-emulator-action@v1.0.1
+        uses: invertase/firebase-emulator-action@v1.0.1
         with:
           firebase-tools-version: 'latest'
           emulators: 'auth,firestore,functions,storage,database'
-          project-id: 'my-test-project'
+          project-id: "test-project"
+          max-retries: "3"
+          max-checks: "60"
+          wait-time: "1"
+          check-port: "8080"
 
       - name: Run Tests
