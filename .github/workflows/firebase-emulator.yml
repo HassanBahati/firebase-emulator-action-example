@@ -16,7 +16,7 @@ jobs:
 
       # Install Firebase Emulator Suite and start the emulators
       - name: Start Firebase Emulator Suite
-        uses: invertase/firebase-emulator-action@v1.0.0
+        uses: invertase/firebase-emulator-action@v1.0.1
         with:
           firebase-tools-version: "latest"
           emulators: "auth,firestore,functions,storage,database"
