@@ -25,3 +25,7 @@ jobs:
           max-checks: "60"
           wait-time: "1"
           check-port: "8080"
+
+      - name: Verify Running Emulators
+        run: |
+          curl --silent http://localhost:4400/emulators | jq 'keys[]'
