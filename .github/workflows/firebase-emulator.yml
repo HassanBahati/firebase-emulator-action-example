@@ -19,7 +19,7 @@ jobs:
         uses: invertase/firebase-emulator-action@v1.0.1
         with:
           firebase-tools-version: "latest"
-          emulators: "auth,firestore,functions,storage,database"
+          emulators: "auth,firestore,functions,storage,database,dataconnect"
           project-id: "test-project"
           max-retries: "3"
           max-checks: "60"
